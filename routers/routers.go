@@ -2,6 +2,7 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	"stock/middleware"
 )
 
 type Option func(*gin.Engine)
@@ -18,7 +19,7 @@ func Init() *gin.Engine {
 	r := gin.New()
 
 	//每個請求將會寫入
-	//r.Use(middleware.LoggerToFile())
+	r.Use(middleware.LoggerToFile())
 
 	for _, opt := range options {
 		opt(r)

@@ -43,8 +43,8 @@ func getStockHander(c *gin.Context) {
 
 	fmt.Println(body)
 
-	//logger := logrus.New()
-	//middleware.LoggerToFileSelf(logger,string(body),"success")
+	logger := logrus.New()
+	middleware.LoggerToFileSelf(logger,string(body),"success")
 
 	//fmt.Println(string(body))
 	//c.JSON(http.StatusOK, gin.H{"data":string(body)})

@@ -129,7 +129,7 @@ func LoggerToMQ() gin.HandlerFunc {
 	}
 }
 
-func LoggerToFileSelf(logger *logrus.Logger,debugVal string,message string) {
+func LoggerToFileSelf(logger *logrus.Logger,debugVal map[string]interface{},message string) {
 
 	logFilePath := config.LOG_FILE_PATH
 	logFileName := config.LOG_FILE_NAME

@@ -49,6 +49,12 @@
 			"revision": ""
 		},
 		{
+			"checksumSHA1": "jtpVFLGJHblEi+c5kxL7q2dAsX0=",
+			"path": "github.com/go-sql-driver/mysql",
+			"revision": "e246959aa61ad88a4d5d459aae5e73d04faf8f85",
+			"revisionTime": "2021-03-29T23:00:02Z"
+		},
+		{
 			"checksumSHA1": "OKHDagZqEfz5MPezTSslPqFBxoQ=",
 			"path": "github.com/golang/protobuf/proto",
 			"revision": "4846b58453b3708320bdb524f25cc5a1d9cda4d4",
@@ -113,6 +119,18 @@
 			"path": "github.com/hashicorp/hcl/json/token",
 			"revision": "beb03eadfd3862ea77b8df8b5350c1f3d421f24c",
 			"revisionTime": "2020-10-15T20:37:45Z"
+		},
+		{
+			"checksumSHA1": "lNDtF/TajctBMzkzu85wBDvySOY=",
+			"path": "github.com/jinzhu/inflection",
+			"revision": "b5281034e75ed100658f8d9d0b2837f3fad4e8b3",
+			"revisionTime": "2021-01-11T02:29:12Z"
+		},
+		{
+			"checksumSHA1": "z9kyda+//CoXodpy4CPFBmQB2gI=",
+			"path": "github.com/jinzhu/now",
+			"revision": "e8c28ddddc015eb8c0a5781a7428cc0bc1b2a5c9",
+			"revisionTime": "2021-03-18T02:19:45Z"
 		},
 		{
 			"checksumSHA1": "+jg61qi/zxdDD2/OjY91Ld50i/k=",
@@ -443,6 +461,54 @@
 			"path": "gopkg.in/yaml.v2",
 			"revision": "7649d4548cb53a614db133b2a8ac1f31859dda8c",
 			"revisionTime": "2020-11-17T15:46:20Z"
+		},
+		{
+			"checksumSHA1": "4WfQTMB+DzVGAB8Pehrck9XYPuE=",
+			"path": "gorm.io/driver/mysql",
+			"revision": "0f593b88a0e89193691f322d97ecd700d5f568d1",
+			"revisionTime": "2021-03-23T04:39:45Z"
+		},
+		{
+			"checksumSHA1": "5yhmPAjsfrs12AxkggYqv9e++Ys=",
+			"path": "gorm.io/gorm",
+			"revision": "33601dc72f4abf86ce68cbb663f7f5c898bee0a3",
+			"revisionTime": "2021-03-30T10:28:09Z"
+		},
+		{
+			"checksumSHA1": "Iuy9+Hvl2Pb2TgB3hsK4RGDwjI8=",
+			"path": "gorm.io/gorm/callbacks",
+			"revision": "33601dc72f4abf86ce68cbb663f7f5c898bee0a3",
+			"revisionTime": "2021-03-30T10:28:09Z"
+		},
+		{
+			"checksumSHA1": "fICekJ5nH3UYq5CIJlEkxe5wEzg=",
+			"path": "gorm.io/gorm/clause",
+			"revision": "33601dc72f4abf86ce68cbb663f7f5c898bee0a3",
+			"revisionTime": "2021-03-30T10:28:09Z"
+		},
+		{
+			"checksumSHA1": "S1kYFwBzF334ImQzha/WAYwVqMg=",
+			"path": "gorm.io/gorm/logger",
+			"revision": "33601dc72f4abf86ce68cbb663f7f5c898bee0a3",
+			"revisionTime": "2021-03-30T10:28:09Z"
+		},
+		{
+			"checksumSHA1": "Mtlp4aJx1VJEzFtJwLTTo70o8CA=",
+			"path": "gorm.io/gorm/migrator",
+			"revision": "33601dc72f4abf86ce68cbb663f7f5c898bee0a3",
+			"revisionTime": "2021-03-30T10:28:09Z"
+		},
+		{
+			"checksumSHA1": "U/H9orQpC6Dnwtl/6BPfnddBFEs=",
+			"path": "gorm.io/gorm/schema",
+			"revision": "33601dc72f4abf86ce68cbb663f7f5c898bee0a3",
+			"revisionTime": "2021-03-30T10:28:09Z"
+		},
+		{
+			"checksumSHA1": "qN0rKYV/CTKeiwXJiKNIiQtc9Zc=",
+			"path": "gorm.io/gorm/utils",
+			"revision": "33601dc72f4abf86ce68cbb663f7f5c898bee0a3",
+			"revisionTime": "2021-03-30T10:28:09Z"
 		}
 	],
 	"rootPath": "stock"

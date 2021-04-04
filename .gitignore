@@ -1,4 +1,4 @@
 vendor/*
 !vendor/vendor.json
 logs/*
-config/env.go
+config/env.yaml

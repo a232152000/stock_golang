@@ -15,8 +15,8 @@ import (
 // 日志记录到文件
 func LoggerToFile() gin.HandlerFunc {
 
-	logFilePath := config.LOG_FILE_PATH
-	logFileName := config.LOG_FILE_NAME
+	logFilePath := config.ViperEnvVariable("LOG_FILE_PATH")
+	logFileName := config.ViperEnvVariable("LOG_FILE_NAME")
 
 	// 日志文件
 	fileName := path.Join(logFilePath, logFileName)
@@ -131,8 +131,8 @@ func LoggerToMQ() gin.HandlerFunc {
 
 func LoggerToFileSelf(logger *logrus.Logger,debugVal map[string]interface{},message string) {
 
-	logFilePath := config.LOG_FILE_PATH
-	logFileName := config.LOG_FILE_NAME
+	logFilePath := config.ViperEnvVariable("LOG_FILE_PATH")
+	logFileName := config.ViperEnvVariable("LOG_FILE_NAME")
 
 	// 日志文件
 	fileName := path.Join(logFilePath, logFileName)

@@ -7,10 +7,10 @@ import (
 	"github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
-	//"stock/config"
+	"stock/config"
 	"stock/middleware"
-	//"gorm.io/driver/mysql"
-	//"gorm.io/gorm"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 type GetStockInfo struct {
@@ -70,6 +70,16 @@ type GetStockInfo struct {
 	Cachedalive int    `json:"cachedAlive"`
 }
 
+type Users struct {
+	ID       int64  `json:"id" gorm:"primary_key;auto_increase'"`
+	Username string `json:"username"`
+	Password string `json:""`
+}
+
+func CreateUser(db *gorm.DB, users *Users) error {
+	return db.Create(users).Error
+}
+
 func getStockHander(c *gin.Context) {
 
 	noStr := c.Param("noStr")
@@ -121,5 +131,21 @@ func getStockHander(c *gin.Context) {
 	middleware.LoggerToFileSelf(logger,getStockMap,"success")
 
 	//c.JSON(http.StatusOK, gin.H{"data":string(body)})
+
+
+	dsn := fmt.Sprintf("%s:%s@%s(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", config.ViperEnvVariable("USERNAME"), config.ViperEnvVariable("PASSWORD"), config.ViperEnvVariable("NETWORK"), config.ViperEnvVariable("SERVER"), config.ViperEnvVariable("PORT"), config.ViperEnvVariable("DATABASE"))
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic("使用 gorm 連線 DB 發生錯誤，原因為 " + err.Error())
+	}
+
+	users := &Users{
+		Username: "test",
+		Password: "test",
+	}
+
+	if err := CreateUser(db, users);err != nil {
+		panic("新增 user 失敗，原因為 " + err.Error())
+	}
 
 }

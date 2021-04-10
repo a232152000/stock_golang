@@ -117,7 +117,7 @@ func getStockHander(c *gin.Context) {
 		return
 	}
 
-	fmt.Printf("%+v", getStockStruct.Userdelay)
+	//fmt.Printf("%+v", getStockStruct.Userdelay)
 
 	//json解析成map
 	var getStockMap map[string]interface{}
@@ -129,9 +129,6 @@ func getStockHander(c *gin.Context) {
 
 	logger := logrus.New()
 	middleware.LoggerToFileSelf(logger,getStockMap,"success")
-
-	//c.JSON(http.StatusOK, gin.H{"data":string(body)})
-
 
 	dsn := fmt.Sprintf("%s:%s@%s(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", config.ViperEnvVariable("USERNAME"), config.ViperEnvVariable("PASSWORD"), config.ViperEnvVariable("NETWORK"), config.ViperEnvVariable("SERVER"), config.ViperEnvVariable("PORT"), config.ViperEnvVariable("DATABASE"))
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})

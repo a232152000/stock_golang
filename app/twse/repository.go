@@ -2,7 +2,6 @@ package twse
 
 import (
 	"gorm.io/gorm"
-	"time"
 )
 
 type StockLatest struct {
@@ -16,7 +15,7 @@ type StockLatest struct {
 	H float64 `json:""`
 	L float64 `json:""`
 	Y float64 `json:""`
-	FinalAt time.Time `json:""`
+	FinalAt string `json:""`
 }
 
 func (StockLatest) TableName() string {

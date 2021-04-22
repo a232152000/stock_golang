@@ -2,3 +2,4 @@ vendor/*
 !vendor/vendor.json
 logs/*
 config/env.yaml
+logs/system.log

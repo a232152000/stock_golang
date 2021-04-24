@@ -17,10 +17,10 @@ func getStockHander(c *gin.Context) {
 
 	noStr := c.Param("noStr")
 
-	stock := getStockInfo(noStr)
+	stock := GetStockInfo(noStr)
 
 	//json解析成struct
-	var getStockStruct GetStockInfo
+	var getStockStruct StockInfoStruct
 	getStockUnJsonErr := json.Unmarshal(stock, &getStockStruct)
 	if getStockUnJsonErr != nil {
 		fmt.Println(getStockUnJsonErr)
@@ -46,30 +46,33 @@ func getStockHander(c *gin.Context) {
 		panic("使用 gorm 連線 DB 發生錯誤，原因為 " + err.Error())
 	}
 
-	for _,v:=range getStockStruct.Msgarray {
+	for _, v := range getStockStruct.Msgarray {
+		UpdateStockLatest(v, db)
+	}
+}
 
-		Z, _ := strconv.ParseFloat(v.Z, 64)
-		O, _ := strconv.ParseFloat(v.O, 64)
-		H, _ := strconv.ParseFloat(v.H, 64)
-		L, _ := strconv.ParseFloat(v.L, 64)
-		Y, _ := strconv.ParseFloat(v.Y, 64)
+func UpdateStockLatest(v Msgarray,db *gorm.DB) {
 
-		stockLatest := &StockLatest{
-			Code:    v.C,
-			Ex:      v.Ex,
-			N:       v.N,
-			Nf:      v.Nf,
-			Z:       Z,
-			O:       O,
-			H:       H,
-			L:       L,
-			Y:       Y,
-			FinalAt: time.Now().Format("2006-01-02 15:04:05"),
-		}
+	Z, _ := strconv.ParseFloat(v.Z, 64)
+	O, _ := strconv.ParseFloat(v.O, 64)
+	H, _ := strconv.ParseFloat(v.H, 64)
+	L, _ := strconv.ParseFloat(v.L, 64)
+	Y, _ := strconv.ParseFloat(v.Y, 64)
 
-		db.Model(StockLatest{}).Where("code = ?", v.C).Updates(stockLatest)
+	stockLatest := StockLatest{
+		Code:    v.C,
+		Ex:      v.Ex,
+		N:       v.N,
+		Nf:      v.Nf,
+		Z:       Z,
+		O:       O,
+		H:       H,
+		L:       L,
+		Y:       Y,
+		FinalAt: time.Now().Format("2006-01-02 15:04:05"),
 	}
 
+	db.Model(StockLatest{}).Where("code = ?", v.C).Updates(stockLatest)
 
 	//if err := CreateStockLatest(db, stockLatest);err != nil {
 	//	panic("新增 stock_latest 失敗，原因為 " + err.Error())

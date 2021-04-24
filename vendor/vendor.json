@@ -217,6 +217,12 @@
 			"revisionTime": "2021-01-06T02:54:41Z"
 		},
 		{
+			"path": "github.com/robfig/cron/v3",
+			"revision": "v3.0.0",
+			"version": "v3.0.0",
+			"versionExact": "v3.0.0"
+		},
+		{
 			"checksumSHA1": "rCdLRfwNa0jYe55ykP/uIKMfu/U=",
 			"path": "github.com/sirupsen/logrus",
 			"revision": "fdf1618bf7436ec3ee65753a6e2999c335e97221",

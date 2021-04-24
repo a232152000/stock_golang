@@ -4,9 +4,12 @@ import (
 	"fmt"
 	"stock/app/twse"
 	"stock/routers"
+	"stock/schedule"
 )
 
 func main() {
+	schedule.GetStockFunc()
+
 	//加载多个APP的路由配置
 	routers.Include(twse.Routers)
 	// 初始化路由

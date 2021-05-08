@@ -2,13 +2,22 @@ package main
 
 import (
 	"fmt"
+	"github.com/robfig/cron"
 	"stock/app/twse"
 	"stock/routers"
 	"stock/schedule"
 )
 
 func main() {
-	schedule.GetStockFunc()
+	//加入排程
+	c := cron.New()
+
+	c.AddFunc("@every 1m", func() {
+		schedule.GetStockFunc()//更新股票資訊
+	})
+
+	c.Start()
+
 
 	//加载多个APP的路由配置
 	routers.Include(twse.Routers)

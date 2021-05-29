@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/robfig/cron"
+	"github.com/robfig/cron/v3"
 	"stock/app/line"
 	"stock/app/twse"
 	"stock/routers"

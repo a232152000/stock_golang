@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/robfig/cron/v3"
+	"github.com/robfig/cron"
+	"stock/app/line"
 	"stock/app/twse"
 	"stock/routers"
 	"stock/schedule"
@@ -20,7 +21,7 @@ func main() {
 
 
 	//加载多个APP的路由配置
-	routers.Include(twse.Routers)
+	routers.Include(twse.Routers, line.Routers)
 	// 初始化路由
 	r := routers.Init()
 

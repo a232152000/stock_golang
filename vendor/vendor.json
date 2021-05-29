@@ -187,6 +187,10 @@
 			"revisionTime": "2021-01-04T23:15:39Z"
 		},
 		{
+			"path": "github.com/line/line-bot-sdk-go/v7/linebot",
+			"revision": ""
+		},
+		{
 			"checksumSHA1": "ZeIl53p1e+EG2JCCRXZ5NBew5/s=",
 			"path": "github.com/magiconair/properties",
 			"revision": "0e5c09062c2daef666bd279e2d2d9f25f218f2be",
@@ -545,6 +549,11 @@
 			"path": "gorm.io/gorm/utils",
 			"revision": "33601dc72f4abf86ce68cbb663f7f5c898bee0a3",
 			"revisionTime": "2021-03-30T10:28:09Z"
+		},
+		{
+			"checksumSHA1": "TVXHcsI2rPnl88iCQJLc1EEFq1M=",
+			"path": "path",
+			"revision": ""
 		}
 	],
 	"rootPath": "stock"

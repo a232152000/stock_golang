@@ -6,6 +6,6 @@ func Routers(e *gin.Engine)  {
 	// 分组
 	v1 := e.Group("/line")
 	{
-		v1.GET("/callback",getCallbackHander)
+		v1.POST("/callback",getCallbackHander)
 	}
 }

@@ -4,28 +4,41 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/line/line-bot-sdk-go/linebot"
-	"os"
+	"github.com/sirupsen/logrus"
+	"log"
 	"stock/config"
+	"stock/middleware"
 )
 
 func getCallbackHander(c *gin.Context) {
+	logger := logrus.New()
 
 	bot, err := linebot.New(
-		os.Getenv(config.ViperEnvVariable("CHANNEL_SECRET")),
-		os.Getenv(config.ViperEnvVariable("CHANNEL_TOKEN")),
+		config.ViperEnvVariable("CHANNEL_SECRET"),
+		config.ViperEnvVariable("CHANNEL_TOKEN"),
 	)
-	if err != nil {
-		//log.Fatal(err)
-	}
 
+	if err != nil {
+		errVal := map[string]interface{}{
+			"error":"new linebot error",
+		}
+
+		middleware.LoggerToFileSelf(logger,errVal,err.Error())
+		log.Fatal(err)
+	}
 
 	events, err := bot.ParseRequest(c.Request)
 	if err != nil {
 		if err == linebot.ErrInvalidSignature {
-			//log.Print(err)
+			errVal := map[string]interface{}{
+				"error":"linebot ParseRequest error",
+			}
+
+			middleware.LoggerToFileSelf(logger,errVal,err.Error())
+			log.Fatal(err)
 		}
-		return
 	}
+
 	for _, event := range events {
 		if event.Type == linebot.EventTypeMessage {
 			switch message := event.Message.(type) {
@@ -40,32 +53,3 @@ func getCallbackHander(c *gin.Context) {
 	}
 
 }
-
-
-//func RecommandVtuber(reqmessage string) (message string) {
-//
-//	url := GetApiUrl()
-//	res, err := http.Get(string(url))
-//	if err != nil {
-//		log.Fatal(err)
-//	}
-//	defer res.Body.Close()
-//
-//	body, err := ioutil.ReadAll(res.Body)
-//	if err != nil {
-//		log.Fatal(err)
-//	}
-//	var vtuber []VtuberInfo
-//
-//	if err := json.Unmarshal(body, &vtuber); err != nil {
-//		log.Fatal(err)
-//	}
-//	rand.Seed(time.Now().UnixNano())
-//	num := rand.Intn(len(vtuber))
-//	if reqmessage == "hello" {
-//		return "hello"
-//	} else {
-//		message = vtuber[num].Name + "はいいぞ!" + GetYoutubeUrl() + vtuber[num].ChannelId
-//	}
-//	return message
-//}

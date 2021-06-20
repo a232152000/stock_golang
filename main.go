@@ -7,18 +7,24 @@ import (
 	"stock/app/twse"
 	"stock/routers"
 	"stock/schedule"
+	"stock/schedule/line"
 )
 
 func main() {
 	//加入排程
-	c := cron.New()
+	//c := cron.New()
+	c := cron.New(cron.WithSeconds())
 
 	c.AddFunc("@every 1m", func() {
 		schedule.GetStockFunc()//更新股票資訊
 	})
 
-	c.Start()
+	c.AddFunc("0 * * * * *", func() {
+		lineSchedule.SendStockInformationFlexFunc() //寄送股票資訊
+	})
 
+	c.Start()
+	defer c.Stop()
 
 	//加载多个APP的路由配置
 	routers.Include(twse.Routers, line.Routers)

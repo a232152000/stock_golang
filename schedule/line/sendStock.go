@@ -3,30 +3,37 @@ package lineSchedule
 import (
 	"database/sql"
 	"fmt"
+	"github.com/line/line-bot-sdk-go/linebot"
+	"github.com/sirupsen/logrus"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"log"
 	"reflect"
+	"stock/app/line"
+	"stock/app/twse"
 	"stock/config"
+	"stock/middleware"
+	"strconv"
 	"time"
 	"unsafe"
 )
 
 func SendStockInformationFlexFunc() {
-	//logger := logrus.New()
+	logger := logrus.New()
 
-	//bot, err := linebot.New(
-	//	config.ViperEnvVariable("CHANNEL_SECRET"),
-	//	config.ViperEnvVariable("CHANNEL_TOKEN"),
-	//)
-	//
-	//if err != nil {
-	//	errVal := map[string]interface{}{
-	//		"error":"new linebot error",
-	//	}
-	//
-	//	middleware.LoggerToFileSelf(logger,errVal,err.Error())
-	//	log.Fatal(err)
-	//}
+	bot, err := linebot.New(
+		config.ViperEnvVariable("CHANNEL_SECRET"),
+		config.ViperEnvVariable("CHANNEL_TOKEN"),
+	)
+
+	if err != nil {
+		errVal := map[string]interface{}{
+			"error":"new linebot error",
+		}
+
+		middleware.LoggerToFileSelf(logger,errVal,err.Error())
+		log.Fatal(err)
+	}
 
 	//撈取DB的股票資訊
 	//var stockLatest []twse.StockLatest
@@ -45,22 +52,60 @@ func SendStockInformationFlexFunc() {
 	*/
 	rows, _ := db.Raw("SELECT a.token,c.* FROM users AS a JOIN user_stock_list AS b ON a.id = b.user_id JOIN stock_latest AS c ON b.stock_latest_id = c.id ORDER BY a.id").Rows()
 	res := scanRows2map(rows)
-	fmt.Println(res)
+	//fmt.Println(res)
 	//jsonString, _ := json.Marshal(res)
 	//fmt.Println(jsonString)
 
 
+	stockLatest := map[string][]twse.StockLatest{}
 
-	//jsonString := line.MakeStockInformationFlex(stockLatest)
-	//
-	//contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
-	//
-	//if err != nil {
-	//	fmt.Println(err)
+	for _,v := range res {
+		id,_ := strconv.ParseInt(v["id"], 10, 64)
+		z,_ := strconv.ParseFloat(v["z"], 64)
+		o,_ := strconv.ParseFloat(v["o"], 64)
+		h,_ := strconv.ParseFloat(v["h"], 64)
+		l,_ := strconv.ParseFloat(v["l"], 64)
+		y,_ := strconv.ParseFloat(v["y"], 64)
+
+		stockLatest[v["token"]] = append(stockLatest[v["token"]],twse.StockLatest{
+			ID: id,
+			Code: v["code"],
+			Ex: v["ex"],
+			N: v["n"],
+			Nf: v["nf"],
+			Z: z,
+			O: o,
+			H: h,
+			L: l,
+			Y: y,
+			FinalAt: v["FinalAt"],
+		})
+	}
+
+	//將map改成有序
+	//var keys []int
+	//for k := range res {
+	//	keys = append(keys, k)
 	//}
-	//if _, err := bot.PushMessage("U55cfec471cde3a870a91c5c372258fd1", linebot.NewFlexMessage("最新股價來囉～", contents)).Do(); err != nil {
-	//	fmt.Println(err)
+	//
+	//sort.Ints(keys)
+	//for _, k := range keys {
+	//	fmt.Println("Key:", k, "Value:", res[k]["token"])
 	//}
+
+
+	for token,stockStruct := range stockLatest{
+		jsonString := line.MakeStockInformationFlex(stockStruct)
+
+		contents, err := linebot.UnmarshalFlexMessageJSON([]byte(jsonString))
+
+		if err != nil {
+			fmt.Println(err)
+		}
+		if _, err := bot.PushMessage(token, linebot.NewFlexMessage("最新股價來囉～", contents)).Do(); err != nil {
+			fmt.Println(err)
+		}
+	}
 }
 
 func scanRows2map(rows *sql.Rows) []map[string]string {
@@ -83,9 +128,6 @@ func scanRows2map(rows *sql.Rows) []map[string]string {
 			if rowValue[i] == nil {
 				record[colType.Name()] = ""
 			} else {
-
-				fmt.Printf("%T\n", rowValue[i])
-
 				switch j := rowValue[i].(type) {
 					case []uint8:
 						record[colType.Name()] = Byte2Str(rowValue[i].([]byte))

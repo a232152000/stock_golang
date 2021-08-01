@@ -3,6 +3,7 @@ package line
 import (
 	"stock/app/twse"
 	"strconv"
+	"time"
 )
 
 func MakeStockInformationFlex(stockLatest []twse.StockLatest) string{
@@ -160,6 +161,34 @@ func MakeStockInformationFlex(stockLatest []twse.StockLatest) string{
 							"flex": 4
 						  }
 						]
+					  },
+					  {
+						"type": "box",
+						"layout": "vertical",
+						"contents": [],
+						"spacing": "none",
+						"margin": "xl"
+					  },
+					  {
+						"type": "box",
+						"layout": "baseline",
+						"spacing": "sm",
+						"contents": [
+						  {
+							"type": "text",
+							"text": "更新時間：",
+							"color": "#aaaaaa",
+							"size": "sm",
+							"flex": 2
+						  },
+						  {
+							"type": "text",
+							"text": "2021-08-01 23:59:59",
+							"wrap": true,
+							"size": "sm",
+							"flex": 4
+						  }
+						]
 					  }
 					]
 				  }
@@ -311,6 +340,34 @@ func MakeStockInformationFlex(stockLatest []twse.StockLatest) string{
 							"text": "+0.11%",
 							"wrap": true,
 							"color": "#ff0000",
+							"size": "sm",
+							"flex": 4
+						  }
+						]
+					  },
+					  {
+						"type": "box",
+						"layout": "vertical",
+						"contents": [],
+						"spacing": "none",
+						"margin": "xl"
+					  },
+					  {
+						"type": "box",
+						"layout": "baseline",
+						"spacing": "sm",
+						"contents": [
+						  {
+							"type": "text",
+							"text": "更新時間：",
+							"color": "#aaaaaa",
+							"size": "sm",
+							"flex": 2
+						  },
+						  {
+							"type": "text",
+							"text": "2021-08-01 23:59:59",
+							"wrap": true,
 							"size": "sm",
 							"flex": 4
 						  }
@@ -499,7 +556,37 @@ func MakeStockInformationFlex(stockLatest []twse.StockLatest) string{
 					  }`
 		}
 
+		finalAt,_ := time.Parse("2006-01-02T15:04:05+08:00", selectStockLatest.FinalAt)
+
 		jsonString = jsonString + `
+					]
+				  },
+				  {
+					"type": "box",
+					"layout": "vertical",
+					"contents": [],
+					"spacing": "none",
+					"margin": "xl"
+				  },
+				  {
+					"type": "box",
+					"layout": "baseline",
+					"spacing": "sm",
+					"contents": [
+					  {
+						"type": "text",
+						"text": "更新時間：",
+						"color": "#aaaaaa",
+						"size": "sm",
+						"flex": 2
+					  },
+					  {
+						"type": "text",
+						"text": "` + finalAt.Format("2006-01-02 15:04:05") + `",
+						"wrap": true,
+						"size": "sm",
+						"flex": 4
+					  }
 					]
 				  }
 				]

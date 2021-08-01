@@ -67,6 +67,10 @@ func SendStockInformationFlexFunc() {
 		l,_ := strconv.ParseFloat(v["l"], 64)
 		y,_ := strconv.ParseFloat(v["y"], 64)
 
+		finalAtParse,_ := time.Parse("2006-01-02 15:04:05", v["final_at"])
+		finalAtFormat := finalAtParse.Format("2006-01-02T15:04:05+08:00")
+//		finalAt,_ := time.Parse("2006-01-02T15:04:05+08:00", finalAtFormat)
+//fmt.Println(finalAt)
 		stockLatest[v["token"]] = append(stockLatest[v["token"]],twse.StockLatest{
 			ID: id,
 			Code: v["code"],
@@ -78,7 +82,7 @@ func SendStockInformationFlexFunc() {
 			H: h,
 			L: l,
 			Y: y,
-			FinalAt: v["FinalAt"],
+			FinalAt: finalAtFormat,
 		})
 	}
 

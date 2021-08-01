@@ -51,15 +51,15 @@ func getCallbackHander(c *gin.Context) {
 		panic("使用 gorm 連線 DB 發生錯誤，原因為 " + err.Error())
 	}
 
-	db.Find(&stockLatest)
-
-	jsonString := MakeStockInformationFlex(stockLatest)
-
 	for _, event := range events {
-		//userID := event.Source.UserID
+		userID := event.Source.UserID
 		replyToken := event.ReplyToken
 		//groupID := event.Source.GroupID
 		//RoomID := event.Source.RoomID
+
+		db.Joins("JOIN user_stock_list ON user_stock_list.stock_latest_id = stock_latest.id").Joins("JOIN users ON user_stock_list.user_id = users.id AND users.token = ?", userID).Find(&stockLatest)
+
+		jsonString := MakeStockInformationFlex(stockLatest)
 
 		if event.Type == linebot.EventTypeMessage {
 			//switch message := event.Message.(type) {

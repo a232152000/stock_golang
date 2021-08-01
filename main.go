@@ -15,11 +15,15 @@ func main() {
 	//c := cron.New()
 	c := cron.New(cron.WithSeconds())
 
-	c.AddFunc("@every 1m", func() {
+	c.AddFunc("@every 3m", func() {
 		schedule.GetStockFunc()//更新股票資訊
 	})
 
-	c.AddFunc("0 * * * * *", func() {
+	c.AddFunc("0 30 9 * * *", func() {
+		lineSchedule.SendStockInformationFlexFunc() //寄送股票資訊
+	})
+
+	c.AddFunc("0 30 11 * * *", func() {
 		lineSchedule.SendStockInformationFlexFunc() //寄送股票資訊
 	})
 

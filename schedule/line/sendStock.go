@@ -82,18 +82,6 @@ func SendStockInformationFlexFunc() {
 		})
 	}
 
-	//將map改成有序
-	//var keys []int
-	//for k := range res {
-	//	keys = append(keys, k)
-	//}
-	//
-	//sort.Ints(keys)
-	//for _, k := range keys {
-	//	fmt.Println("Key:", k, "Value:", res[k]["token"])
-	//}
-
-
 	for token,stockStruct := range stockLatest{
 		jsonString := line.MakeStockInformationFlex(stockStruct)
 

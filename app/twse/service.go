@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 type StockInfoStruct struct {
@@ -106,7 +107,20 @@ func GetStockInfo(code string)  []byte{
 	url := "https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch="+code+"&json=1&delay=0"
 	method := "GET"
 
+	var netTransport = &http.Transport{
+		MaxIdleConns: 100,
+	}
+
+	//var netTransport = &http.Transport{
+	//	Dial: (&net.Dialer{
+	//		Timeout: 5 * time.Second,
+	//	}).Dial,
+	//	TLSHandshakeTimeout: 5 * time.Second,
+	//}
+
 	client := &http.Client {
+		Timeout: time.Second * 10,
+		Transport: netTransport,
 	}
 	req, err := http.NewRequest(method, url, nil)
 

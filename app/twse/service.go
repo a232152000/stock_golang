@@ -125,17 +125,20 @@ func GetStockInfo(code string)  []byte{
 	req, err := http.NewRequest(method, url, nil)
 
 	if err != nil {
+		fmt.Println("error 1:")
 		fmt.Println(err)
 	}
 
 	res, err := client.Do(req)
 	if err != nil {
+		fmt.Println("error 2:")
 		fmt.Println(err)
 	}
 	defer res.Body.Close()
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
+		fmt.Println("error 3:")
 		fmt.Println(err)
 	}
 

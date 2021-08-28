@@ -7,6 +7,14 @@ import (
 	"time"
 )
 
+var globalTransport *http.Transport
+
+func init() {
+	globalTransport = &http.Transport{
+		MaxIdleConns: 100,
+	}
+}
+
 type StockInfoStruct struct {
 	Msgarray []struct {
 		Tv    string `json:"tv"`
@@ -107,9 +115,9 @@ func GetStockInfo(code string)  []byte{
 	url := "https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch="+code+"&json=1&delay=0"
 	method := "GET"
 
-	var netTransport = &http.Transport{
-		MaxIdleConns: 100,
-	}
+	//var netTransport = &http.Transport{
+	//	MaxIdleConns: 100,
+	//}
 
 	//var netTransport = &http.Transport{
 	//	Dial: (&net.Dialer{
@@ -120,7 +128,7 @@ func GetStockInfo(code string)  []byte{
 
 	client := &http.Client {
 		Timeout: time.Second * 10,
-		Transport: netTransport,
+		Transport: globalTransport,
 	}
 	req, err := http.NewRequest(method, url, nil)
 
@@ -130,11 +138,14 @@ func GetStockInfo(code string)  []byte{
 	}
 
 	res, err := client.Do(req)
+	if res != nil {
+		defer res.Body.Close()
+	}
+
 	if err != nil {
 		fmt.Println("error 2:")
 		fmt.Println(err)
 	}
-	defer res.Body.Close()
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {

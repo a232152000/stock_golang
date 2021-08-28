@@ -12,14 +12,13 @@ import (
 
 func main() {
 	//加入排程
-	//c := cron.New()
 	c := cron.New(cron.WithSeconds())
 
-	c.AddFunc("@every 3m", func() {
+	c.AddFunc("0 */3 * * * 1-5", func() {
 		schedule.GetStockFunc()//更新股票資訊
 	})
 
-	c.AddFunc("30 30 9 * * *", func() {
+	c.AddFunc("30 30 9 * * 1-5", func() {
 		lineSchedule.SendStockInformationFlexFunc() //寄送股票資訊
 	})
 

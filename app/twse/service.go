@@ -4,16 +4,17 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"stock/global"
 	"time"
 )
 
-var globalTransport *http.Transport
-
-func init() {
-	globalTransport = &http.Transport{
-		MaxIdleConns: 100,
-	}
-}
+//var globalTransport *http.Transport
+//
+//func init() {
+//	globalTransport = &http.Transport{
+//		MaxIdleConns: 100,
+//	}
+//}
 
 type StockInfoStruct struct {
 	Msgarray []struct {
@@ -128,7 +129,7 @@ func GetStockInfo(code string)  []byte{
 
 	client := &http.Client {
 		Timeout: time.Second * 10,
-		Transport: globalTransport,
+		Transport: global.GlobalTransport,
 	}
 	req, err := http.NewRequest(method, url, nil)
 

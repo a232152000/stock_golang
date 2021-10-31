@@ -128,7 +128,7 @@ func GetStockInfo(code string)  []byte{
 	//}
 
 	client := &http.Client {
-		Timeout: time.Second * 10,
+		Timeout: time.Second * 2,
 		Transport: global.GlobalTransport,
 	}
 	req, err := http.NewRequest(method, url, nil)
@@ -136,6 +136,8 @@ func GetStockInfo(code string)  []byte{
 	if err != nil {
 		fmt.Println("error 1:")
 		fmt.Println(err)
+
+		return nil
 	}
 
 	res, err := client.Do(req)
@@ -146,6 +148,8 @@ func GetStockInfo(code string)  []byte{
 	if err != nil {
 		fmt.Println("error 2:")
 		fmt.Println(err)
+
+		return nil
 	}
 
 	body, err := ioutil.ReadAll(res.Body)

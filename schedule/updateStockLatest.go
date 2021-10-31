@@ -31,6 +31,10 @@ func GetStockFunc() {
 
 	stock := twse.GetStockInfo(noStr)
 
+	if stock == nil{
+		return
+	}
+
 	//json解析成struct
 	var getStockStruct twse.StockInfoStruct
 	getStockUnJsonErr := json.Unmarshal(stock, &getStockStruct)

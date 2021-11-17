@@ -14,7 +14,7 @@ func main() {
 	//加入排程
 	c := cron.New(cron.WithSeconds())
 
-	c.AddFunc("0 */3 * * * 1-5", func() {
+	c.AddFunc("0 */3 8-14 * * 1-5", func() {
 		schedule.GetStockFunc()//更新股票資訊
 	})
 

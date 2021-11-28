@@ -22,7 +22,7 @@ func main() {
 		lineSchedule.SendStockInformationFlexFunc() //寄送股票資訊
 	})
 
-	c.AddFunc("30 30 11 * * *", func() {
+	c.AddFunc("30 30 11 * * 1-5", func() {
 		lineSchedule.SendStockInformationFlexFunc() //寄送股票資訊
 	})
 

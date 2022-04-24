@@ -19,7 +19,7 @@ type StockLatest struct {
 }
 
 func (StockLatest) TableName() string {
-	return "stock_latest"
+	return "stocks"
 }
 
 func CreateStockLatest(db *gorm.DB, stockLatest *StockLatest) error {

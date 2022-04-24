@@ -57,7 +57,7 @@ func getCallbackHander(c *gin.Context) {
 		//groupID := event.Source.GroupID
 		//RoomID := event.Source.RoomID
 
-		db.Joins("JOIN user_stock_list ON user_stock_list.stock_latest_id = stock_latest.id").Joins("JOIN users ON user_stock_list.user_id = users.id AND users.token = ?", userID).Find(&stockLatest)
+		db.Joins("JOIN line_user_stock ON line_user_stock.stock_id = stocks.id").Joins("JOIN line_users ON line_user_stock.user_id = line_users.id AND line_users.token = ?", userID).Find(&stockLatest)
 
 		jsonString := MakeStockInformationFlex(stockLatest)
 

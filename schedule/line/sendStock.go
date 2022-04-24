@@ -50,7 +50,7 @@ func SendStockInformationFlexFunc() {
 		https://gocn.vip/topics/2121
 		https://kylewbanks.com/blog/query-result-to-map-in-golang
 	*/
-	rows, _ := db.Raw("SELECT a.token,c.* FROM users AS a JOIN user_stock_list AS b ON a.id = b.user_id JOIN stock_latest AS c ON b.stock_latest_id = c.id ORDER BY a.id").Rows()
+	rows, _ := db.Raw("SELECT a.token,c.* FROM line_users AS a JOIN line_user_stock AS b ON a.id = b.user_id JOIN stocks AS c ON b.stock_id = c.id ORDER BY a.id").Rows()
 	res := scanRows2map(rows)
 	//fmt.Println(res)
 	//jsonString, _ := json.Marshal(res)

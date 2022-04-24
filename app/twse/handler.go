@@ -75,6 +75,6 @@ func UpdateStockLatest(v Msgarray,db *gorm.DB) {
 	db.Model(StockLatest{}).Where("code = ?", v.C).Updates(stockLatest)
 
 	//if err := CreateStockLatest(db, stockLatest);err != nil {
-	//	panic("新增 stock_latest 失敗，原因為 " + err.Error())
+	//	panic("新增 stocks 失敗，原因為 " + err.Error())
 	//}
 }

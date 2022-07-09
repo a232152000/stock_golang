@@ -18,7 +18,7 @@ func main() {
 		schedule.GetStockFunc()//更新股票資訊
 	})
 
-	c.AddFunc("0 12 13 * * *", func() {
+	c.AddFunc("0 15 13 * * *", func() {
 		lineSchedule.SendStockInformationFlexFunc() //寄送股票資訊
 	})
 

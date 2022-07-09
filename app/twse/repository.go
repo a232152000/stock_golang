@@ -16,6 +16,7 @@ type StockLatest struct {
 	L float64 `json:""`
 	Y float64 `json:""`
 	FinalAt string `json:""`
+	UpdatedAt string `json:""`
 }
 
 func (StockLatest) TableName() string {

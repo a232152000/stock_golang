@@ -70,6 +70,7 @@ func UpdateStockLatest(v Msgarray,db *gorm.DB) {
 		L:       L,
 		Y:       Y,
 		FinalAt: time.Now().Format("2006-01-02 15:04:05"),
+		UpdatedAt: time.Now().Format("2006-01-02 15:04:05"),
 	}
 
 	db.Model(StockLatest{}).Where("code = ?", v.C).Updates(stockLatest)

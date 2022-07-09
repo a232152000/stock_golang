@@ -18,6 +18,10 @@ func main() {
 		schedule.GetStockFunc()//更新股票資訊
 	})
 
+	c.AddFunc("0 12 13 * * *", func() {
+		lineSchedule.SendStockInformationFlexFunc() //寄送股票資訊
+	})
+
 	c.AddFunc("30 30 9 * * 1-5", func() {
 		lineSchedule.SendStockInformationFlexFunc() //寄送股票資訊
 	})
@@ -41,7 +45,7 @@ func main() {
 	//middleware.LoggerToFileSelf(logger,"animal","A walrus appears")
 
 
-	if err := r.Run(":80"); err != nil {
+	if err := r.Run(":8011"); err != nil {
 		fmt.Println("main執行失敗, err:%v\n", err)
 	}
 }

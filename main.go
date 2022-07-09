@@ -14,19 +14,16 @@ func main() {
 	//加入排程
 	c := cron.New(cron.WithSeconds())
 
-	c.AddFunc("0 */3 8-14 * * 1-5", func() {
+	c.AddFunc("10 */3 8-14 * * 1-5", func() {
 		schedule.GetStockFunc()//更新股票資訊
 	})
 
-	c.AddFunc("0 15 13 * * *", func() {
+
+	c.AddFunc("30 29 9 * * 1-5", func() {
 		lineSchedule.SendStockInformationFlexFunc() //寄送股票資訊
 	})
 
-	c.AddFunc("30 30 9 * * 1-5", func() {
-		lineSchedule.SendStockInformationFlexFunc() //寄送股票資訊
-	})
-
-	c.AddFunc("30 30 11 * * 1-5", func() {
+	c.AddFunc("30 29 11 * * 1-5", func() {
 		lineSchedule.SendStockInformationFlexFunc() //寄送股票資訊
 	})
 
